@@ -3,6 +3,7 @@
 3. データをファイルとして取得
 	```
 	SELECT * INTO OUTFILE '/var/lib/mysql-files/log.csv' 
+	FIELDS TERMINATED BY ','
 	FROM (
 		SELECT 'start_at','end_at' 
 		UNION 
@@ -12,10 +13,11 @@
 	```
 - user_id=1の9月のデータが欲しい場合 
 	```
-	SELECT * INTO OUTFILE '/var/lib/mysql-files/1_9.csv' 
+	SELECT * INTO OUTFILE '/var/lib/mysql-files/1_9.csv'
+	FIELDS TERMINATED BY ',' 
 	FROM (
 		SELECT 'start_at','end_at' 
-		UNION 
+		UNION
 		SELECT start_at,end_at 
 		FROM app.logs 
 		WHERE start_at >= '2023-9-01 00:00:00' 
