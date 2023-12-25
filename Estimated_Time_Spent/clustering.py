@@ -7,13 +7,24 @@ def convert_seconds_to_hms(seconds):
     minutes, seconds = divmod(remainder, 60)
     return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
 
-def k_means_clustering(data, k):
-    # ランダムな点をk個設置
-    centroids = np.random.choice(data, size=k, replace=False)
+def k_means_pp(data, k):
+    # 最初の中心点をランダムに選択
+    centroids = [data[np.random.choice(len(data))]]
     
+    while len(centroids) < k:
+        # 各データポイントと最も近い中心点までの距離の2乗を計算
+        distances = [min([np.linalg.norm(point - np.array(centroid)) for centroid in centroids]) ** 2 for point in data]
+        
+        # 新しい中心点を距離に比例した確率で選択
+        new_centroid_index = np.random.choice(len(data), p=distances / np.sum(distances))
+        centroids.append(data[new_centroid_index])
+    
+    return k_means_clustering(data, centroids)
+
+def k_means_clustering(data, centroids):
     while True:
         # ステップ2: 最も近い点が同じデータでグループ化
-        groups = [[] for _ in range(k)]
+        groups = [[] for _ in range(len(centroids))]
         for point in data:
             distances = [np.linalg.norm(point - np.array(centroid)) for centroid in centroids]
             closest_centroid_index = np.argmin(distances)
@@ -38,7 +49,7 @@ def k_means_clustering(data, k):
             "centroid": centroid_time,
             "points": cluster_points
         })
-    # print(clusters)
+    
     return clusters
 
 def xmeans(data):
@@ -47,7 +58,7 @@ def xmeans(data):
     
     while True:
         # K-means法でクラスタリング
-        clusters = k_means_clustering(data, k)
+        clusters = k_means_pp(data, k)
         # for i, cluster in enumerate(clusters):
         #     centroid_time = cluster["centroid"]
         #     cluster_points = cluster["points"]
@@ -65,10 +76,10 @@ def xmeans(data):
         
         # print(cluster_variances)
         # print(f"クラスタ数: {k}, クラスタ内のデータ分散の平均: {avg_cluster_variance}")
-        print("")
+        # print("")
         
         # クラスタ内のデータ分散が閾値以下なら終了
-        if avg_cluster_variance < 35000000:
+        if avg_cluster_variance < 30000000:
             break
         
         # クラスタ数を増やして再実行
