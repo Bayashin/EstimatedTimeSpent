@@ -1,4 +1,4 @@
-import Estimated_Time_Spent.kmeans as kmeans
+import Estimated_Time_Spent.clustering as clustering
 import Estimated_Time_Spent. graph as graph
 import pandas as pd
 import numpy as np
@@ -20,8 +20,8 @@ k = 3  # クラスタの数
 initial_centroids = ["6:00", "12:00", "18:00"]
 # 初期値を秒単位に変換
 centroids = np.array([sum(x * int(t) for x, t in zip([3600, 60], point.split(":"))) for point in initial_centroids])
-result_first = kmeans.k_means_clustering(data_seconds_first, k, centroids)
-result_end = kmeans.k_means_clustering(data_seconds_end, k, centroids)
+result_first = clustering.k_means_clustering(data_seconds_first, k, centroids)
+result_end = clustering.k_means_clustering(data_seconds_end, k, centroids)
 
 # 結果の出力
 print(result_first)
