@@ -30,7 +30,7 @@ def main():
         # 1. 曜日ごとにDataFrameを分割
         df_day.append(df[df['day'] == i])
         df_day[i] = df_day[i].reset_index(drop=True)
-        print(f"曜日{i}のデータ")
+        # print(f"曜日{i}のデータ")
         print(df_day[i])
 
         # 2. 分割したDataFrameごと文字列をdatetime型に変換
@@ -70,5 +70,5 @@ def main():
             print(f"Cluster {j + 1}: Centroid = {centroid_time}, Points = {cluster_points}")
 
     # 7. グラフの作成
-    # graph.make_graph(result_entry, "hayashiの入室時刻")
-    # graph.make_graph(result_exit, "hayashiの退室時刻")
+    graph.make_graph(result_entry, "hayashiの入室時刻")
+    graph.make_graph(result_exit, "hayashiの退室時刻")
