@@ -1,10 +1,12 @@
 import Estimated_Time_Spent.clustering as clustering
 import Estimated_Time_Spent.graph as graph
 import Estimated_Time_Spent.date as date
+import Estimated_Time_Spent.normal_distribution as nd
 import pandas as pd
 import numpy as np
 
 def main():
+    day_list = ["月", "火", "水", "木", "金", "土", "日"]
     # CSVファイルからデータを読み込む
     file_path = 'processed_data/hayashi_09-12.csv'  # ファイルパスを適切に設定
     df = pd.read_csv(file_path, delimiter=',')  # タブ区切りの場合
@@ -18,6 +20,8 @@ def main():
     # 6. 結果の出力
     # 7. グラフの作成
 
+    # print(df)
+
     # 曜日ごとのデータを格納するリスト
     # 月曜日: 0, 日曜日: 6
     df_day = []
@@ -30,8 +34,8 @@ def main():
         # 1. 曜日ごとにDataFrameを分割
         df_day.append(df[df['day'] == i])
         df_day[i] = df_day[i].reset_index(drop=True)
-        # print(f"曜日{i}のデータ")
-        print(df_day[i])
+        # print(f"{day_list[i]}曜日のデータ")
+        # print(df_day[i])
 
         # 2. 分割したDataFrameごと文字列をdatetime型に変換
         df_entry = df_day[i]['entry'].to_list()
@@ -51,7 +55,7 @@ def main():
     print("入室時刻の結果")
     # print(result_entry)
     for i, result_entry_day in enumerate(result_entry):
-        print(f"曜日{i}のデータ")
+        print(f"{day_list[i]}曜日のデータ")
         for j, cluster in enumerate(result_entry_day):
             centroid_time = cluster["centroid"]
             cluster_points = cluster["points"]
@@ -63,11 +67,13 @@ def main():
     print("退室時刻の結果")
     # print(result_exit)    
     for i, result_exit_day in enumerate(result_exit):
-        print(f"曜日{i}のデータ")
+        print(f"{day_list[i]}曜日のデータ")
         for j, cluster in enumerate(result_exit_day):
             centroid_time = cluster["centroid"]
             cluster_points = cluster["points"]
             print(f"Cluster {j + 1}: Centroid = {centroid_time}, Points = {cluster_points}")
+
+    nd.plot_density_estimation([result_exit[0][0]["points"], result_exit[0][1]["points"], result_exit[0][2]["points"]])
 
     # 7. グラフの作成
     graph.make_graph(result_entry, "hayashiの入室時刻")
