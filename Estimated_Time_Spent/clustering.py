@@ -1,11 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime
-
-def convert_seconds_to_hms(seconds):
-    hours, remainder = divmod(seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-    return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+import Estimated_Time_Spent.date as date
 
 def k_means_pp(data, k):
     # 最初の中心点をランダムに選択
@@ -42,8 +38,8 @@ def k_means_clustering(data, centroids):
     # ステップ6: クラスタリングした結果を出力
     clusters = []
     for i, group in enumerate(groups):
-        centroid_time = convert_seconds_to_hms(int(centroids[i]))
-        cluster_points = [convert_seconds_to_hms(point) for point in group]
+        centroid_time = date.convert_seconds_to_hms(int(centroids[i]))
+        cluster_points = [date.convert_seconds_to_hms(point) for point in group]
         
         clusters.append({
             "centroid": centroid_time,

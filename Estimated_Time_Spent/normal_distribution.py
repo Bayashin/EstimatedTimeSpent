@@ -20,7 +20,7 @@ def normal_distribution(data, label, color):
     pdf_vals = norm.pdf(x_vals, loc=np.mean(time_seconds), scale=np.std(time_seconds))
     plt.plot(x_vals, pdf_vals, color=color, label=label)
 
-def plot_density_estimation(data):
+def density_estimation_graph(data):
     print(data)
     # データセットごとに確率密度関数をプロット
     if len(data) == 1:

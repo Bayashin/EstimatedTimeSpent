@@ -1,7 +1,6 @@
 import Estimated_Time_Spent.clustering as clustering
 import Estimated_Time_Spent.graph as graph
 import Estimated_Time_Spent.date as date
-import Estimated_Time_Spent.normal_distribution as nd
 import pandas as pd
 import numpy as np
 
@@ -10,6 +9,8 @@ def main():
     # CSVファイルからデータを読み込む
     file_path = 'processed_data/hayashi_09-12.csv'  # ファイルパスを適切に設定
     df = pd.read_csv(file_path, delimiter=',')  # タブ区切りの場合
+
+    # 日付から曜日を取得してDataFrameに追加
     df = date.identification_day(df)
 
     # 1. 曜日ごとにDataFrameを分割
@@ -65,7 +66,7 @@ def main():
     print("")
 
     print("退室時刻の結果")
-    # print(result_exit)    
+    # print(result_exit)
     for i, result_exit_day in enumerate(result_exit):
         print(f"{day_list[i]}曜日のデータ")
         for j, cluster in enumerate(result_exit_day):
@@ -73,8 +74,8 @@ def main():
             cluster_points = cluster["points"]
             print(f"Cluster {j + 1}: Centroid = {centroid_time}, Points = {cluster_points}")
 
-    nd.plot_density_estimation([result_exit[0][0]["points"], result_exit[0][1]["points"], result_exit[0][2]["points"]])
+    graph.density_estimation_graph([result_exit[0][0]["points"], result_exit[0][1]["points"], result_exit[0][2]["points"]])
 
     # 7. グラフの作成
-    graph.make_graph(result_entry, "hayashiの入室時刻")
-    graph.make_graph(result_exit, "hayashiの退室時刻")
+    graph.clustering_graph(result_entry, "hayashiの入室時刻")
+    graph.clustering_graph(result_exit, "hayashiの退室時刻")
