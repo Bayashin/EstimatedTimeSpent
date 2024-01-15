@@ -1,6 +1,7 @@
 import Estimated_Time_Spent.clustering as clustering
 import Estimated_Time_Spent.graph as graph
 import Estimated_Time_Spent.date as date
+import Estimated_Time_Spent.normal_distribution as nd
 import pandas as pd
 import numpy as np
 
@@ -74,7 +75,9 @@ def main():
             cluster_points = cluster["points"]
             print(f"Cluster {j + 1}: Centroid = {centroid_time}, Points = {cluster_points}")
 
+    day_count = date.number_days(date.first_day_of_month(df.head(1)),date.last_day_of_month(df.tail(1)), 0)
     graph.density_estimation_graph([result_exit[0][0]["points"], result_exit[0][1]["points"], result_exit[0][2]["points"]])
+    nd.probability_from_normal_distribution([result_exit[0][0]["points"], result_exit[0][1]["points"], result_exit[0][2]["points"]], "20:00:00", day_count)
 
     # 7. グラフの作成
     graph.clustering_graph(result_entry, "hayashiの入室時刻")
