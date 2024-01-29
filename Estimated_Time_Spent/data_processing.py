@@ -15,7 +15,6 @@ grouped_data = df.groupby(df['start_at'].dt.date)
 for date, group in grouped_data:
     entry = group.loc[group['start_at'].idxmin()]
     exit = group.loc[group['start_at'].idxmax()]
-    
     result_data.append({
         'date': date,
         'entry': entry['start_at'].strftime('%H:%M:%S.%f')[:-3],
