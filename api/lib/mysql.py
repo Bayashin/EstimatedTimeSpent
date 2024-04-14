@@ -8,7 +8,14 @@ host = "HOST"
 port = "PORT"
 database = "fastapi_sample"
 
-engine = create_engine("mysql://{user_name}:{password}@{host}:{port}/{database}?charset=utf8")
+SQLALCHEMY_DATABASE_URL = "mysql+mysqldb://{user_name}:{password}@{host}:{port}/{database}?charset=utf8"
 
-SessionClass = sessionmaker(engine)
-Session = SessionClass()
+engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def get_db() :
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
