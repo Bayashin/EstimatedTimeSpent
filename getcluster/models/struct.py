@@ -41,7 +41,7 @@ class Cluster(Base):
 class Log(Base):
     __tablename__ = 'logs'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    created_at: Mapped[datetime.date] = mapped_column(nullable=False)
+    created_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
     updated_at: Mapped[datetime.datetime] = mapped_column(ullable=False)
     deleted_at: Mapped[datetime.datetime] = mapped_column(nullable=True)
     room_id: Mapped[int] = mapped_column(nullable=False)
@@ -53,7 +53,7 @@ class Log(Base):
 class User(Base):
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    created_at: Mapped[datetime.date] = mapped_column(nullable=False)
+    created_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
     updated_at: Mapped[datetime.datetime] = mapped_column(ullable=False)
     deleted_at: Mapped[datetime.datetime] = mapped_column(nullable=True)
     uuid: Mapped[str] = mapped_column(nullable=False)

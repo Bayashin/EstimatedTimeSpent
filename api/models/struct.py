@@ -30,7 +30,7 @@ class Logs(Base):
     Leave:Mapped[datetime.time] = mapped_column(nullable=False)
 # clusterテーブルのモデルCluster
 class Cluster(Base):
-    __tablename__ = 'cluster'
+    __tablename__ = 'clusters'
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     date: Mapped[datetime.date] = mapped_column(nullable=False)
     reporting: Mapped[bool]
