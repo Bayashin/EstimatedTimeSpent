@@ -42,7 +42,7 @@ class Log(Base):
     __tablename__ = 'logs'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     created_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
-    updated_at: Mapped[datetime.datetime] = mapped_column(ullable=False)
+    updated_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
     deleted_at: Mapped[datetime.datetime] = mapped_column(nullable=True)
     room_id: Mapped[int] = mapped_column(nullable=False)
     start_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
@@ -54,11 +54,11 @@ class User(Base):
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     created_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
-    updated_at: Mapped[datetime.datetime] = mapped_column(ullable=False)
+    updated_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
     deleted_at: Mapped[datetime.datetime] = mapped_column(nullable=True)
     uuid: Mapped[str] = mapped_column(nullable=False)
     name: Mapped[str] = mapped_column(nullable=False)
     email: Mapped[str] = mapped_column(nullable=False)
     role: Mapped[int] = mapped_column(nullable=False)
-    beacon_id: Mapped[int] = mapped_column(ullable=False)
-    community_id: Mapped[int] = mapped_column(ullable=False)
+    beacon_id: Mapped[int] = mapped_column(nullable=False)
+    community_id: Mapped[int] = mapped_column(nullable=False)

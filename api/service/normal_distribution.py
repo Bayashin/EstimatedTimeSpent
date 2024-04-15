@@ -19,7 +19,7 @@ def probability_from_normal_distribution(clusters: list[st.Cluster], time: str, 
             # timeより後に研究室に来ている割合を計算
             probabilities.append((1 - norm.cdf(time_seconds, cluster.average, cluster.sd))* cluster.count/day_count)
     probability = sum(probabilities)
-    return probability
+    return {probability*100:.2}
     # if yn:
     #     print(f"{time}までに研究室に来ている確率は{probability*100:.2f}%です。")
     # else:
