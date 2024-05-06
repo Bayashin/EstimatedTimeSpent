@@ -41,10 +41,11 @@ def xmeans(data: list[int]) -> list[list[int]]:
         #     cluster_points = cluster["points"]
         #     print(f"Cluster {i + 1}: Centroid = {centroid_time}, Points = {cluster_points}")
         # クラスタごとにデータポイントを秒に変換
-        data_seconds = [[sum(x * int(t) for x, t in zip([3600, 60, 1], point.split(":"))) for point in cluster['points']] for cluster in clusters]
+        # data_seconds = [[sum(x * int(t) for x, t in zip([3600, 60, 1], point.split(":"))) for point in cluster['points']] for cluster in clusters]
         # print(data_seconds)
         # クラスタごとにデータ分散を計算
-        cluster_variances = [np.var(cluster_data) for cluster_data in data_seconds]
+        # cluster_variances = [np.var(cluster_data) for cluster_data in data_seconds]
+        cluster_variances = [np.var(cluster) for cluster in clusters]
         # クラスタ内のデータ分散の平均を計算
         avg_cluster_variance = np.mean(cluster_variances)
         # print(cluster_variances)

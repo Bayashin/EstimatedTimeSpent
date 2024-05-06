@@ -26,7 +26,7 @@ class EditedLog(Base):
     user_id: Mapped[int] = mapped_column(nullable=False)
     date: Mapped[datetime.date] = mapped_column(nullable=False)
     reporting: Mapped[datetime.time] = mapped_column(nullable=False)
-    leave: Mapped[datetime.time] = mapped_column(nullable=False)
+    leaving: Mapped[datetime.time] = mapped_column(nullable=False)
 # clusterテーブルのモデルCluster
 class Cluster(Base):
     __tablename__ = 'clusters'
