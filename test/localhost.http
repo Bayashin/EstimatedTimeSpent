@@ -1,0 +1,20 @@
+@userUrl = http://localhost:8080
+@probability = app/probability
+@reporting = reporting
+@before = before
+@user_id = 1
+@date = 2024-04-23
+@time = 12:00:00
+@community = 1
+
+### root
+GET {{userUrl}}/
+
+### 時間推定(ユーザ・時間指定
+GET {{userUrl}}/{{probability}}/{{reporting}}/{{before}}?user_id={{user_id}}&date={{date}}&time={{time}}
+
+### 時間推定(ユーザ)
+GET {{userUrl}}/{{probability}}/{{reporting}}/{{before}}?user_id={{user_id}}&date={{date}}
+
+### 時間推定(全員)
+GET {{userUrl}}/{{probability}}/all?community={{community}}&date={{date}}

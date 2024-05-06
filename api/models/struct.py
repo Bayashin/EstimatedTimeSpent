@@ -26,14 +26,14 @@ class Logs(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(nullable=False)
     date:Mapped[datetime.date] = mapped_column(nullable=False)
-    Reporting:Mapped[datetime.time] = mapped_column(nullable=False)
-    Leave:Mapped[datetime.time] = mapped_column(nullable=False)
+    reporting:Mapped[datetime.time] = mapped_column(nullable=False)
+    leave:Mapped[datetime.time] = mapped_column(nullable=False)
 # clusterテーブルのモデルCluster
 class Cluster(Base):
     __tablename__ = 'clusters'
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     date: Mapped[datetime.date] = mapped_column(nullable=False)
-    reporting: Mapped[bool]
+    reporting: Mapped[bool] = mapped_column(nullable=False)
     average: Mapped[float] = mapped_column(nullable=False)
     sd: Mapped[float] = mapped_column(nullable=False)
     count: Mapped[int] = mapped_column(nullable=False)

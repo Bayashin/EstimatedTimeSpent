@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from . import struct as st
 
 # 全てのユーザを取得する
-def get_all_users(db: Session) -> list[st.User]:
-    users: list[st.User] = db.query(st.Users).all()
+def get_all_users_by_community(community:int, db: Session) -> list[st.User]:
+    users: list[st.User] = db.query(st.User).where(st.User.community_id == community).all()
     return users
 
 # 特定のユーザを取得する
