@@ -1,12 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 接続したいDBへの接続情報
-user_name = 'root'
-password = 'admin'
-host = '127.0.0.1'
-port = '3309'
-database = 'testdb'
+user_name = os.getenv('USER_NAME')
+password = os.getenv('PASSWORD')
+host = os.getenv('HOST')
+port = os.getenv('PORT')
+database = os.getenv('DATABASE')
 
 SQLALCHEMY_DATABASE_URL = "mysql://" + user_name + ":" + password + "@" + host + ":" +port + "/" + database + "?charset=utf8&unix_socket=/var/run/mysqld/mysqld.sock"
 print(SQLALCHEMY_DATABASE_URL)
