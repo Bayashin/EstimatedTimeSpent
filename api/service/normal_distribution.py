@@ -1,6 +1,6 @@
 from __future__ import annotations
 from scipy.stats import norm
-from ..models import struct as st
+from models import struct as st
 
 def convert_to_seconds(time_str :str) -> int:
     hours, minutes, seconds = map(int, time_str.split(':'))
@@ -14,12 +14,26 @@ def probability_from_normal_distribution(clusters: list[st.Cluster], time: str, 
         time_seconds = convert_to_seconds(time)
         if yn:
             # timeより前に研究室に来ている割合を計算
-            probabilities.append(norm.cdf(time_seconds, cluster.average, cluster.sd)* cluster.count/day_count)
+            if cluster.sd == 0:
+                if time_seconds >= cluster.average:
+                    n = 1 * cluster.count/day_count
+                else:
+                    n = 0
+            else:
+                n = norm.cdf(time_seconds, cluster.average, cluster.sd)* cluster.count/day_count
+            probabilities.append(n)
         else:
             # timeより後に研究室に来ている割合を計算
-            probabilities.append((1 - norm.cdf(time_seconds, cluster.average, cluster.sd))* cluster.count/day_count)
+            if cluster.sd == 0:
+                if time_seconds <= cluster.average:
+                    n = 1 * cluster.count/day_count
+                else:
+                    n = 0
+            else:
+                n = (1 - norm.cdf(time_seconds, cluster.average, cluster.sd))* cluster.count/day_count
+            probabilities.append(n)
     probability = sum(probabilities)
-    return {probability*100:.2}
+    return f'{probability*100:.2f}'
     # if yn:
     #     print(f"{time}までに研究室に来ている確率は{probability*100:.2f}%です。")
     # else:
