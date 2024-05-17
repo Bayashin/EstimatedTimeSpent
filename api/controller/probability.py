@@ -39,8 +39,8 @@ async def get_probability_reporting_before(reporting:str, before:str, user_id:in
     return ORJSONResponse(result_json)
 
 # 全てのユーザがその日に入室する確率を返す
-@router.get("/app/probability/all/", response_class=ORJSONResponse, response_model=List[ProbabilityResponse])
-async def get_probability_all(community:int = 0, date:str = "2024-1-1", db: Session = Depends(get_db)):
+@router.get("/app/probability/{community}/all", response_class=ORJSONResponse, response_model=List[ProbabilityResponse])
+async def get_probability_all(community:int, date:str = "2024-1-1", db: Session = Depends(get_db)):
     date_object= datetime.strptime(date, '%Y-%m-%d')
     seven_days_ago= date_object - timedelta(days=7)
     users = us.get_all_users_by_community(community,db)
