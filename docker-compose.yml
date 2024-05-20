@@ -14,3 +14,15 @@ services:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: testdb
       MYSQL_TCP_PORT: 3309
+
+  api:
+    container_name: probabillity_api
+    build:
+      context: .
+      dockerfile: ./docker/api/dockerfile
+    ports:
+      - "8090:8090"
+    expose:
+      - 8090
+    depends_on:
+      - mysql
