@@ -5,7 +5,7 @@ services:
     image: mysql:8
     volumes:
       - ./docker/mysql/mysqld_charset.cnf:/etc/mysql/conf.d/my.cnf
-      # - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
     ports:
       - "3309:3309"
     expose:
@@ -14,3 +14,15 @@ services:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: testdb
       MYSQL_TCP_PORT: 3309
+
+  api:
+    container_name: probabillity_api
+    build:
+      context: .
+      dockerfile: ./docker/api/dockerfile
+    ports:
+      - "8090:8090"
+    expose:
+      - 8090
+    depends_on:
+      - mysql

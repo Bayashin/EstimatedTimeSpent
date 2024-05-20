@@ -1,4 +1,4 @@
-@userUrl = http://localhost:8080
+@userUrl = http://127.0.0.1:8090
 @probability = app/probability
 @reporting = reporting
 @before = before
