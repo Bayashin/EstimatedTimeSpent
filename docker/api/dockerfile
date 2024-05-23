@@ -9,7 +9,6 @@ RUN apt update && apt install -y \
     git
 
 COPY ./api/ ./
-COPY ./requirements.txt ./
 COPY ./.env ./
 
 RUN pip install --upgrade pip && \
