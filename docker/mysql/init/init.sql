@@ -34,18 +34,19 @@ CREATE TABLE IF NOT EXISTS users (
     PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS logs (
-    id INT NOT NULL AUTO_INCREMENT,
-    created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
-    deleted_at DATETIME DEFAULT NULL,
-    room_id INT NOT NULL,
-    start_at DATETIME NOT NULL,
-    end_at DATETIME NOT NULL,
-    user_id INT NOT NULL,
-    rssi INT NOT NULL,
-    PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE logs (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    created_at datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
+    updated_at datetime(3) DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    deleted_at datetime(3) DEFAULT NULL,
+    room_id bigint DEFAULT NULL,
+    start_at datetime(3) DEFAULT NULL,
+    end_at datetime(3) DEFAULT NULL,
+    user_id bigint DEFAULT NULL,
+    rssi bigint DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY deleted_at (deleted_at)
+);
 
 INSERT INTO users (
     uuid, name, email, role, beacon_id, community_id
